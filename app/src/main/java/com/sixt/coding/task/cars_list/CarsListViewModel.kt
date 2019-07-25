@@ -1,8 +1,7 @@
-package com.sixt.coding.task
+package com.sixt.coding.task.cars_list
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.google.gson.JsonObject
 import com.sixt.coding.task.api.repo.CarsRepository
 import com.sixt.coding.task.base.BaseViewModel
 import com.sixt.coding.task.di.module.OBSERVER_ON
@@ -12,9 +11,9 @@ import io.reactivex.Scheduler
 import javax.inject.Inject
 import javax.inject.Named
 
-class MapViewModel @Inject constructor(private val carRepository: CarsRepository,
-                                         @param:Named(SUBCRIBER_ON) private val subscriberOn: Scheduler,
-                                         @param:Named(OBSERVER_ON) private val observerOn: Scheduler) : BaseViewModel() {
+class CarsListViewModel @Inject constructor(private val carRepository: CarsRepository,
+                                       @param:Named(SUBCRIBER_ON) private val subscriberOn: Scheduler,
+                                       @param:Named(OBSERVER_ON) private val observerOn: Scheduler) : BaseViewModel() {
     val cars: MutableLiveData<MutableList<Car>?> = MutableLiveData()
     val isLoading: MutableLiveData<Boolean?> = MutableLiveData()
     val errorMessage: MutableLiveData<String?> = MutableLiveData()

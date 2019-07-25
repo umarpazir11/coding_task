@@ -1,7 +1,8 @@
-package com.sixt.coding.task
+package com.sixt.coding.task.cars_map
 
 import android.os.Bundle
-import android.util.Log
+import android.view.View
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LifecycleOwner
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -9,10 +10,18 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.sixt.coding.task.R
 import com.sixt.coding.task.base.BaseActivity
+import com.sixt.coding.task.cars_list.CarFragment
+import com.sixt.coding.task.cars_list.dummy.DummyContent
 import com.sixt.coding.task.databinding.ActivityMapsBinding
 
-class MapsActivity : BaseActivity<MapViewModel,ActivityMapsBinding>(), LifecycleOwner, OnMapReadyCallback {
+class MapsActivity : BaseActivity<MapViewModel,ActivityMapsBinding>(), LifecycleOwner, OnMapReadyCallback,
+    CarFragment.OnListFragmentInteractionListener {
+    override fun onListFragmentInteraction(item: DummyContent.DummyItem?) {
+
+    }
+
     override fun getViewModel(): Class<MapViewModel> {
         return MapViewModel::class.java
     }
@@ -31,7 +40,15 @@ class MapsActivity : BaseActivity<MapViewModel,ActivityMapsBinding>(), Lifecycle
         binding.lifecycleOwner = this
         viewModel.getCars()
 
-       // Log.i("cars value",""+viewModel.cars.value!!.size)
+        binding.floatingActionButton.setOnClickListener {
+            val carFragment = CarFragment()
+            val fragmentManager: FragmentManager = this.supportFragmentManager
+            val transaction = fragmentManager.beginTransaction()
+            transaction.addToBackStack(null)
+            transaction.replace(R.id.map,carFragment)
+            transaction.commit()
+
+        }
 
 
         val mapFragment = supportFragmentManager

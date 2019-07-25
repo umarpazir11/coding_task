@@ -1,21 +1,15 @@
 package com.sixt.coding.task.di.bulider
 
 
+import com.sixt.coding.task.cars_list.CarFragment
 import dagger.Module
+import dagger.android.ContributesAndroidInjector
 
-/**
- * This builder provides android injector service to fragments
- * Author: Lajesh D
- * Email: lajeshds2007@gmail.com
- * Created: 7/24/2018
- * Modified: 7/24/2018
- */
 @Module
 abstract class FragmentBuilderModule {
 
-    //@FragmentScope
-//    @ContributesAndroidInjector
-//    internal abstract fun loginFragment(): LoginFragment
+    @ContributesAndroidInjector
+    internal abstract fun carFragment(): CarFragment
 
 
 
