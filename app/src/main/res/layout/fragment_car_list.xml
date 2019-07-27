@@ -3,14 +3,23 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="viewModel"
+            type="com.sixt.coding.task.cars_list.CarsListViewModel"/>
+    </data>
 
+    <!--app:reverseLayout="true"-->
+    <!--bind:adapter="@{viewModel.adapter}"-->
+    <!--app:data="@{viewModel.data}"-->
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list"
-            android:name="com.sixt.coding.task.cars_list.CarFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/white"
             app:layoutManager="LinearLayoutManager"
+            app:adapter="@{viewModel.getAdapter()}"
             tools:context=".cars_list.CarFragment"
             tools:listitem="@layout/fragment_car"/>
 </layout>

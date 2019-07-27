@@ -1,6 +1,5 @@
 package com.sixt.coding.task.api;
 
-import com.google.gson.JsonObject;
 import com.sixt.coding.task.model.Car;
 import io.reactivex.Observable;
 import retrofit2.http.*;

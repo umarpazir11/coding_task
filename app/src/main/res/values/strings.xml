@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Sixt Coding Task</string>
     <string name="title_activity_maps">Map</string>
+
+    <string name="car_loading_error">An error occurred while loading the vehicles</string>
+
 </resources>
