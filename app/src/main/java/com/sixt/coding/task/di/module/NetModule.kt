@@ -1,5 +1,6 @@
 package com.sixt.coding.task.di.module
 
+
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.sixt.coding.task.api.NetworkServices
@@ -24,6 +25,7 @@ class NetModule {
 
     @Provides
     fun provideGson(): Gson = GsonBuilder().create()
+
 
     @Provides
     fun provideHttpClient(): OkHttpClient = OkHttpClient.Builder().addInterceptor(interceptor.setLevel(HttpLoggingInterceptor.Level.BODY))

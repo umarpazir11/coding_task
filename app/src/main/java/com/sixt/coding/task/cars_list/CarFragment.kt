@@ -1,6 +1,7 @@
 package com.sixt.coding.task.cars_list
 
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.widget.Toast
@@ -9,9 +10,10 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import com.sixt.coding.task.R
 import com.sixt.coding.task.base.BaseFragment
 import com.sixt.coding.task.databinding.FragmentCarListBinding
+import dagger.android.support.DaggerAppCompatActivity
 
 /**
- * A fragment representing a list of Items.
+ * A fragment representing a list of Cars.
  */
 class CarFragment : BaseFragment<CarsListViewModel, FragmentCarListBinding>() {
     override val layoutRes: Int
@@ -23,31 +25,24 @@ class CarFragment : BaseFragment<CarsListViewModel, FragmentCarListBinding>() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        // Set the adapter
-        //binding.list.layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
+        if(activity is DaggerAppCompatActivity){
+            (activity as DaggerAppCompatActivity).setSupportActionBar(binding.toolbar)
+        }
+        binding.toolbar.setNavigationIcon(R.drawable.ic_back_button)
         binding.lifecycleOwner = this
         val layoutManager = LinearLayoutManager(context)
         binding.list.hasFixedSize()
         binding.list.addItemDecoration(DividerItemDecoration(context, layoutManager.orientation))
         binding.viewModel = viewModel
 
-
-       // observeData()
-       // viewModel.getCars()
-
     }
-
-//    private fun observeData() {
-//        viewModel.cars
-//            .observe(this, Observer {
-//                it?.let {
-//                    if (it.size > 0) {
-//                        val adapter = MyCarRecyclerViewAdapter()
-//                        binding.list.adapter = adapter
-//                    }else{
-//                        Toast.makeText(activity,"No Data Found",Toast.LENGTH_LONG).show()
-//                    }
-//                }
-//            })
-//    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                activity!!.onBackPressed()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
 }

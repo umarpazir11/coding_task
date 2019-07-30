@@ -6,6 +6,20 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
+apply plugin: 'com.justpinch.androidanalyzer'
+
+androidAnalyzer {
+    applicationId = 'com.sixt.coding.task'
+    projectName = 'Sixt Coding Task'
+    projectVersion = '1.0'
+    detekt = true
+    serverUrl = 'http://127.0.0.1:9000'
+//    unitTestCoverage = false
+//    packageName = 'com.sixt.coding.task'
+//    buildVariant = 'debug'
+    sonarqubeGitBranches = false // only works with a paid license
+}
+
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -38,8 +52,11 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.0.2'
 
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    implementation 'com.google.android.gms:play-services-location:17.0.0'
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
@@ -70,8 +87,11 @@ dependencies {
     kapt 'com.google.dagger:dagger-compiler:2.22.1'
     kaptTest 'com.google.dagger:dagger-compiler:2.22.1'
     implementation 'com.google.dagger:dagger-android-support:2.22.1'
-
     implementation "com.google.dagger:dagger-android:2.22.1"
     kapt "com.google.dagger:dagger-android-processor:2.22.1"
     implementation 'com.google.android.material:material:1.0.0'
+
+    //Glide image loading library
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    kapt 'com.github.bumptech.glide:compiler:4.9.0'
 }

@@ -35,9 +35,6 @@ import javax.inject.Inject
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, layoutRes)
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(getViewModel())
-
-
     }
-
 }
 

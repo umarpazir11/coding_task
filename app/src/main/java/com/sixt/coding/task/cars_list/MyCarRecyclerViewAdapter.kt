@@ -1,36 +1,46 @@
 package com.sixt.coding.task.cars_list
 
+import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import com.bumptech.glide.Glide
 import com.sixt.coding.task.R
-import com.sixt.coding.task.base.BaseAdapter
 import com.sixt.coding.task.databinding.FragmentCarBinding
 import com.sixt.coding.task.model.Car
+import com.bumptech.glide.request.RequestOptions
+
 
 /**
  * [RecyclerView.Adapter] that can display a [Car]
  */
-//RecyclerView.Adapter<MyCarRecyclerViewAdapter.ViewHolder>()
-class MyCarRecyclerViewAdapter : BaseAdapter<MyCarRecyclerViewAdapter.ViewHolder,RecyclerView>() {
-    override fun setData(data: List<RecyclerView>) {
-    }
+class MyCarRecyclerViewAdapter : RecyclerView.Adapter<MyCarRecyclerViewAdapter.ViewHolder>() {
 
-    lateinit var carList: List<Car>
+    lateinit var context: Context
+    private lateinit var carList: List<Car>
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding = DataBindingUtil.inflate<FragmentCarBinding>(layoutInflater, R.layout.fragment_car, parent, false)
-
+        context = parent.context
         return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = carList[position]
-        //holder.binding.car = carList[position]
         holder.binding.tvMake.text = item.make
         holder.binding.tvName.text = item.name
+
+        val sharedOptions = RequestOptions()
+            .placeholder(R.mipmap.ic_launcher)
+        Glide.with(context)
+            .load(item.carImageUrl)
+            .apply(sharedOptions)
+            .into(holder.binding.ivCar)
+
 
     }
     override fun getItemCount(): Int {

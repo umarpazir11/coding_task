@@ -17,14 +17,4 @@ class AppModule(private val app: BaseApplication) {
     return app
   }
 
-
-
-
-
-//  @Provides
-//  @Singleton
-//  fun provideCryptocurrenciesViewModelFactory(
-//      factory: ViewModelFactory): ViewModelProvider.Factory = factory
-
-
 }

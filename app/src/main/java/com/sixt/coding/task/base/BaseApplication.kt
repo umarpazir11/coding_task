@@ -18,11 +18,22 @@ open class BaseApplication : Application(), HasActivityInjector, HasSupportFragm
     @Inject
     lateinit var fragmentInjector: DispatchingAndroidInjector<Fragment>
 
+        private var sInstance: BaseApplication? = null
+
+    fun getAppContext(): BaseApplication? {
+        return sInstance
+    }
+    @Synchronized
+    private fun setInstance(app: BaseApplication) {
+        sInstance = app
+    }
+
     override fun onCreate() {
         super.onCreate()
          DaggerAppComponent.builder()
                 .application(this)
                 .build().inject(this)
+        setInstance(this)
     }
 
     override fun activityInjector(): AndroidInjector<Activity> = activityInjector

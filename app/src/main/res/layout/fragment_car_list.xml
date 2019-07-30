@@ -6,20 +6,37 @@
     <data>
         <import type="android.view.View"/>
         <variable
-            name="viewModel"
-            type="com.sixt.coding.task.cars_list.CarsListViewModel"/>
+                name="viewModel"
+                type="com.sixt.coding.task.cars_list.CarsListViewModel"/>
     </data>
-
-    <!--app:reverseLayout="true"-->
-    <!--bind:adapter="@{viewModel.adapter}"-->
-    <!--app:data="@{viewModel.data}"-->
-    <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/list"
+    <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@android:color/white"
-            app:layoutManager="LinearLayoutManager"
-            app:adapter="@{viewModel.getAdapter()}"
-            tools:context=".cars_list.CarFragment"
-            tools:listitem="@layout/fragment_car"/>
+            android:layout_height="match_parent">
+        <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:background="@color/colorPrimary"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+        <!--app:reverseLayout="true"-->
+        <!--bind:adapter="@{viewModel.adapter}"-->
+        <!--app:data="@{viewModel.data}"-->
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/list"
+                android:layout_width="match_parent"
+                android:layout_height="731dp"
+                android:background="@android:color/white"
+                app:layoutManager="LinearLayoutManager"
+                app:adapter="@{viewModel.getAdapter()}"
+                tools:context=".cars_list.CarFragment"
+                tools:listitem="@layout/fragment_car"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintVertical_bias="0.0"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

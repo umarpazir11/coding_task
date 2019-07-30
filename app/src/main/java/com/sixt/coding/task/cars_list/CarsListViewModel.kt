@@ -14,12 +14,14 @@ import io.reactivex.Scheduler
 import javax.inject.Inject
 import javax.inject.Named
 
+/**
+ * A ViewModel used for the {@link CarFragment}.
+ */
 class CarsListViewModel @Inject constructor(private val carRepository: CarsRepository,
                                             @param:Named(SUBCRIBER_ON) private val subscriberOn: Scheduler,
                                             @param:Named(OBSERVER_ON) private val observerOn: Scheduler) : BaseViewModel() {
     val adapter = MyCarRecyclerViewAdapter()
 
-   // val cars: MutableLiveData<MutableList<Car>> = MutableLiveData()
     val isLoading: MutableLiveData<Boolean?> = MutableLiveData()
     val errorMessage: MutableLiveData<String?> = MutableLiveData()
 
