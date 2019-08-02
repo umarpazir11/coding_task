@@ -24,9 +24,6 @@ import javax.inject.Named
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.SupportMapFragment
 
-
-
-
 /**
  * A ViewModel used for the {@link MapFragment}.
  */
@@ -61,16 +58,10 @@ class MapViewModel @Inject constructor(
     }
 
     fun callMap(activity: MapFragment) {
-        //@Suppress("UNCHECKED_CAST")
         val mapFragment: SupportMapFragment = (activity.childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment)
         mapFragment.getMapAsync(this)
-
-//        val mapFragment = activity.supportFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment
-//        mapFragment.getMapAsync(this)
-
-
     }
-    fun getCars() {
+    private fun getCars() {
         this.disposable.addAll(this.carRepository.getCars()
             .subscribeOn(subscriberOn)
             .observeOn(observerOn)
