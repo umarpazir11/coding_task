@@ -6,6 +6,7 @@ import android.content.ContextWrapper
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.maps.model.LatLng
@@ -27,7 +28,7 @@ import com.google.android.gms.maps.SupportMapFragment
 
 
 /**
- * A ViewModel used for the {@link MapsActivity}.
+ * A ViewModel used for the {@link MapFragment}.
  */
 class MapViewModel @Inject constructor(
     private val carRepository: CarsRepository,
@@ -43,29 +44,31 @@ class MapViewModel @Inject constructor(
     val cars: MutableLiveData<MutableList<Car>?> = MutableLiveData()
     val isLoading: MutableLiveData<Boolean?> = MutableLiveData()
     val errorMessage: MutableLiveData<String?> = MutableLiveData()
-    var btnVisibility: MutableLiveData<Boolean?> = MutableLiveData()
 
 
     init {
         this.isLoading.value = true
-        this.btnVisibility.value = true
     }
 
     fun onFloatingActionButton(v: View) {
-        btnVisibility.value = false
         val activity = unwrap(v.context)
         val carFragment = CarFragment()
         val fragmentManager: FragmentManager = activity.supportFragmentManager
         val transaction = fragmentManager.beginTransaction()
         transaction.addToBackStack(null)
-        transaction.replace(R.id.map, carFragment)
+        transaction.replace(R.id.container, carFragment)
         transaction.commit()
     }
 
-    fun callMap(activity: AppCompatActivity) {
-        @Suppress("UNCHECKED_CAST")
-        val mapFragment = activity.supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
+    fun callMap(activity: MapFragment) {
+        //@Suppress("UNCHECKED_CAST")
+        val mapFragment: SupportMapFragment = (activity.childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment)
         mapFragment.getMapAsync(this)
+
+//        val mapFragment = activity.supportFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment
+//        mapFragment.getMapAsync(this)
+
+
     }
     fun getCars() {
         this.disposable.addAll(this.carRepository.getCars()

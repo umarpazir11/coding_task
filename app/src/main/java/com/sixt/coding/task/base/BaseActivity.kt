@@ -17,24 +17,24 @@ import javax.inject.Inject
  *
  * Author: Umer
  */
- abstract class BaseActivity<V : ViewModel,D : ViewDataBinding> : DaggerAppCompatActivity(), HasSupportFragmentInjector {
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
+ abstract class BaseActivity<D : ViewDataBinding> : DaggerAppCompatActivity(), HasSupportFragmentInjector {
+//    @Inject
+//    lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    lateinit var viewModel: V
+    //lateinit var viewModel: V
 
     lateinit var binding: D
 
     @get:LayoutRes
     protected abstract val layoutRes: Int
 
-    protected abstract fun getViewModel(): Class<V>
+    //protected abstract fun getViewModel(): Class<V>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, layoutRes)
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(getViewModel())
+        //viewModel = ViewModelProviders.of(this, viewModelFactory).get(getViewModel())
     }
 }
 

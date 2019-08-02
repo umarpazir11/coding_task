@@ -1,7 +1,7 @@
 package com.sixt.coding.task.di.bulider
 
 
-import com.sixt.coding.task.cars_map.MapsActivity
+import com.sixt.coding.task.HomeActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -10,7 +10,7 @@ import dagger.android.ContributesAndroidInjector
 abstract class ActivityBuilderModule {
 
     @ContributesAndroidInjector(modules = [FragmentBuilderModule::class])
-    internal abstract fun mapsActivity(): MapsActivity
+    internal abstract fun mapsActivity(): HomeActivity
 
 
 

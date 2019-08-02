@@ -5,15 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
-
+import com.sixt.coding.task.R
 import javax.inject.Inject
-
 import dagger.android.support.AndroidSupportInjection
 
 /**
@@ -22,7 +23,6 @@ import dagger.android.support.AndroidSupportInjection
  *
  * Author: Umer
  */
-//V : ViewModel,
 abstract class BaseFragment<V : ViewModel, D : ViewDataBinding> : Fragment() {
 
     @Inject
@@ -40,6 +40,7 @@ abstract class BaseFragment<V : ViewModel, D : ViewDataBinding> : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidSupportInjection.inject(this)
         super.onCreate(savedInstanceState)
+
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(getViewModel())
     }
 
@@ -47,6 +48,16 @@ abstract class BaseFragment<V : ViewModel, D : ViewDataBinding> : Fragment() {
         setHasOptionsMenu(true)
         binding = DataBindingUtil.inflate(inflater, layoutRes, container, false)
         return binding.root
+    }
+
+    fun toolBar(toolBar: Toolbar,title: String,backButton: Boolean){
+        if(activity is AppCompatActivity){
+            (activity as AppCompatActivity).setSupportActionBar(toolBar)
+            (activity as AppCompatActivity).supportActionBar!!.title = title
+        }
+        if(backButton)
+            toolBar.setNavigationIcon(R.drawable.ic_back_button)
+
     }
 
 }
