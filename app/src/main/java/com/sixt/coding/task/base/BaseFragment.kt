@@ -2,6 +2,7 @@ package com.sixt.coding.task.base
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
@@ -58,6 +59,16 @@ abstract class BaseFragment<V : ViewModel, D : ViewDataBinding> : Fragment() {
         if(backButton)
             toolBar.setNavigationIcon(R.drawable.ic_back_button)
 
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                activity!!.onBackPressed()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
 }

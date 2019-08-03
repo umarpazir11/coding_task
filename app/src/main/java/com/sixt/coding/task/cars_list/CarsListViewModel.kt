@@ -21,6 +21,7 @@ class CarsListViewModel @Inject constructor(private val carRepository: CarsRepos
                                             @param:Named(SUBCRIBER_ON) private val subscriberOn: Scheduler,
                                             @param:Named(OBSERVER_ON) private val observerOn: Scheduler) : BaseViewModel() {
     val adapter = MyCarRecyclerViewAdapter()
+    val cars: MutableLiveData<MutableList<Car>?> = MutableLiveData()
 
     val isLoading: MutableLiveData<Boolean?> = MutableLiveData()
     val errorMessage: MutableLiveData<String?> = MutableLiveData()
@@ -49,9 +50,7 @@ class CarsListViewModel @Inject constructor(private val carRepository: CarsRepos
             }
             .subscribe(
                 {
-                    //cars.value = it
-                    Log.i("cars",""+it.size)
-                    //Log.i("cars list",""+ cars.value!!.size)
+                    cars.value = it
                     this.isLoading.value = false
                     adapter.updateCarList(it)
                 },

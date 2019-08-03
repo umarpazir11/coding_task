@@ -1,7 +1,6 @@
 package com.sixt.coding.task.cars_list
 
 import android.os.Bundle
-import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.sixt.coding.task.R
@@ -21,7 +20,7 @@ class CarFragment : BaseFragment<CarsListViewModel, FragmentCarListBinding>() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        toolBar(binding.toolbar,getString(R.string.title_fragment_list),true)
+        toolBar(toolBar = binding.toolbar,title = getString(R.string.title_fragment_list),backButton = true)
 
         binding.lifecycleOwner = this
         val layoutManager = LinearLayoutManager(context)
@@ -29,13 +28,5 @@ class CarFragment : BaseFragment<CarsListViewModel, FragmentCarListBinding>() {
         binding.list.addItemDecoration(DividerItemDecoration(context, layoutManager.orientation))
         binding.viewModel = viewModel
     }
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> {
-                activity!!.onBackPressed()
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
+
 }

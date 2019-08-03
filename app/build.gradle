@@ -22,6 +22,8 @@ androidAnalyzer {
 
 android {
     compileSdkVersion 28
+    testOptions.unitTests.includeAndroidResources = true
+
     defaultConfig {
         applicationId "com.sixt.coding.task"
         minSdkVersion 15
@@ -94,4 +96,12 @@ dependencies {
     //Glide image loading library
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     kapt 'com.github.bumptech.glide:compiler:4.9.0'
+
+    //Unit Tests
+    implementation "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
+    // CORE TESTING
+    testImplementation 'android.arch.core:core-testing:1.1.1'
+    // ROBOLECTRIC
+    testImplementation 'org.robolectric:robolectric:4.1'
+
 }

@@ -61,7 +61,7 @@ class MapViewModel @Inject constructor(
         val mapFragment: SupportMapFragment = (activity.childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment)
         mapFragment.getMapAsync(this)
     }
-    private fun getCars() {
+    fun getCars() {
         this.disposable.addAll(this.carRepository.getCars()
             .subscribeOn(subscriberOn)
             .observeOn(observerOn)
@@ -78,11 +78,11 @@ class MapViewModel @Inject constructor(
                 {
                     cars.value = it
                     this.isLoading.value = false
-                    for (car in it) {
-                        val latLng = LatLng(car.latitude, car.longitude)
-                        mMap.addMarker(MarkerOptions().position(latLng).title(car.name).snippet(car.make))
-                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12.0f))
-                    }
+//                    for (car in it) {
+//                        val latLng = LatLng(car.latitude, car.longitude)
+//                        mMap.addMarker(MarkerOptions().position(latLng).title(car.name).snippet(car.make))
+//                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12.0f))
+//                    }
                 },
                 {
                     this.errorMessage.value = it.message
