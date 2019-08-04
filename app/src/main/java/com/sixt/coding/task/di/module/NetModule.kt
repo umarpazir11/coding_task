@@ -19,13 +19,10 @@ import javax.inject.Singleton
 @Module
 class NetModule {
 
-
     private val interceptor = HttpLoggingInterceptor()
-
 
     @Provides
     fun provideGson(): Gson = GsonBuilder().create()
-
 
     @Provides
     fun provideHttpClient(): OkHttpClient = OkHttpClient.Builder().addInterceptor(interceptor.setLevel(HttpLoggingInterceptor.Level.BODY))

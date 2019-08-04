@@ -1,8 +1,5 @@
-package com.sixt.coding.task.cars_list
+package com.sixt.coding.task.carslist
 
-import android.util.Log
-import androidx.databinding.BaseObservable
-import androidx.databinding.library.baseAdapters.BR
 import androidx.lifecycle.MutableLiveData
 import com.sixt.coding.task.R
 import com.sixt.coding.task.api.repo.CarsRepository
@@ -21,6 +18,9 @@ class CarsListViewModel @Inject constructor(private val carRepository: CarsRepos
                                             @param:Named(SUBCRIBER_ON) private val subscriberOn: Scheduler,
                                             @param:Named(OBSERVER_ON) private val observerOn: Scheduler) : BaseViewModel() {
     val adapter = MyCarRecyclerViewAdapter()
+    /**
+     * For A Unit Test
+     */
     val cars: MutableLiveData<MutableList<Car>?> = MutableLiveData()
 
     val isLoading: MutableLiveData<Boolean?> = MutableLiveData()
@@ -31,9 +31,6 @@ class CarsListViewModel @Inject constructor(private val carRepository: CarsRepos
         this.isLoading.value = true
         getCars()
     }
-
-
-
 
     fun getCars() {
         this.disposable.addAll(this.carRepository.getCars()
@@ -50,7 +47,7 @@ class CarsListViewModel @Inject constructor(private val carRepository: CarsRepos
             }
             .subscribe(
                 {
-                    cars.value = it
+                    cars.value = (it as? MutableList<Car>)
                     this.isLoading.value = false
                     adapter.updateCarList(it)
                 },

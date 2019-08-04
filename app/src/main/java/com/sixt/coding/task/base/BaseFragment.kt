@@ -52,9 +52,9 @@ abstract class BaseFragment<V : ViewModel, D : ViewDataBinding> : Fragment() {
     }
 
     fun toolBar(toolBar: Toolbar,title: String,backButton: Boolean){
-        if(activity is AppCompatActivity){
-            (activity as AppCompatActivity).setSupportActionBar(toolBar)
-            (activity as AppCompatActivity).supportActionBar!!.title = title
+        if(activity is AppCompatActivity?){
+            (activity as? AppCompatActivity)?.setSupportActionBar(toolBar)
+            (activity as? AppCompatActivity)?.supportActionBar!!.title = title
         }
         if(backButton)
             toolBar.setNavigationIcon(R.drawable.ic_back_button)

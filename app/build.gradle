@@ -8,18 +8,32 @@ apply plugin: 'kotlin-kapt'
 
 apply plugin: 'com.justpinch.androidanalyzer'
 
-androidAnalyzer {
-    applicationId = 'com.sixt.coding.task'
-    projectName = 'Sixt Coding Task'
-    projectVersion = '1.0'
-    detekt = true
-    serverUrl = 'http://127.0.0.1:9000'
-//    unitTestCoverage = false
-//    packageName = 'com.sixt.coding.task'
-//    buildVariant = 'debug'
-    sonarqubeGitBranches = false // only works with a paid license
-}
+apply plugin: 'jacoco'
 
+task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+
+    def fileFilter = ['**/R.class',
+                      '**/R$*.class',
+                      '**/BuildConfig.*',
+                      '**/Manifest*.*',
+                      '**/*Test*.*',
+                      'android/**/*.*',
+                      '**/data/models/*']
+    def debugTree = fileTree(dir: "${buildDir}/intermediates/classes/debug", excludes: fileFilter)
+    def mainSrc = "${project.projectDir}/src/main/java"
+
+    sourceDirectories = files([mainSrc])
+    classDirectories = files([debugTree])
+    executionData = fileTree(dir: "$buildDir", includes: [
+            "jacoco/testDebugUnitTest.exec",
+            "outputs/code-coverage/connected/*coverage.ec"
+    ])
+
+}
 android {
     compileSdkVersion 28
     testOptions.unitTests.includeAndroidResources = true
@@ -40,12 +54,35 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            testCoverageEnabled false
+        }
+        debug {
+            testCoverageEnabled true
         }
     }
     kapt { correctErrorTypes = true }
     dataBinding {
         enabled = true
     }
+    android.testOptions {
+        unitTests.all {
+            jacoco {
+                includeNoLocationClasses = true
+            }
+        }
+    }
+    androidAnalyzer {
+        applicationId = 'com.sixt.coding.task'
+        projectName = 'Sixt Coding Task'
+        projectVersion = '1.0'
+        detekt = true
+        serverUrl = 'http://127.0.0.1:9000'
+        packageName = 'com.sixt.coding.task'
+        buildVariant = 'debug'
+        unitTestCoverage = true
+        sonarqubeGitBranches = false // only works with a paid license
+    }
+
 }
 
 dependencies {
@@ -103,5 +140,7 @@ dependencies {
     testImplementation 'android.arch.core:core-testing:1.1.1'
     // ROBOLECTRIC
     testImplementation 'org.robolectric:robolectric:4.1'
+
+
 
 }

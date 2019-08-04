@@ -1,4 +1,4 @@
-package com.sixt.coding.task.cars_map
+package com.sixt.coding.task.carsmap
 
 import android.os.Bundle
 import androidx.lifecycle.LifecycleOwner
@@ -17,7 +17,8 @@ class MapFragment : BaseFragment<MapViewModel, MapFragmentBinding>(), LifecycleO
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        toolBar(binding.toolbar,getString(R.string.title_fragment_maps),false)
+        toolBar(toolBar = binding.toolbar,title = getString(R.string.title_fragment_maps),backButton = false)
+
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
         viewModel.callMap(this)

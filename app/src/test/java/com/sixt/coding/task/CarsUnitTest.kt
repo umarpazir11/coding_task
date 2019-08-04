@@ -5,8 +5,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProviders
 import com.sixt.coding.task.base.BaseTest
-import com.sixt.coding.task.cars_list.CarsListViewModel
-import com.sixt.coding.task.cars_map.MapViewModel
+import com.sixt.coding.task.carslist.CarsListViewModel
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
