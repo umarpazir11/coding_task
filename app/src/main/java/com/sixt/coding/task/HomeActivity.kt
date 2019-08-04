@@ -3,7 +3,7 @@ package com.sixt.coding.task
 import android.os.Bundle
 import androidx.fragment.app.FragmentManager
 import com.sixt.coding.task.base.BaseActivity
-import com.sixt.coding.task.cars_map.MapFragment
+import com.sixt.coding.task.carsmap.MapFragment
 import com.sixt.coding.task.databinding.ActivityMapsBinding
 
 class HomeActivity : BaseActivity<ActivityMapsBinding>() {

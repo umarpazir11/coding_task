@@ -6,7 +6,7 @@
         <import type="android.view.View"/>
         <variable
                 name="viewModel"
-                type="com.sixt.coding.task.cars_map.MapViewModel"/>
+                type="com.sixt.coding.task.carsmap.MapViewModel"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

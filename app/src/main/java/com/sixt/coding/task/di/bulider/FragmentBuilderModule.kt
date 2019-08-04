@@ -1,8 +1,8 @@
 package com.sixt.coding.task.di.bulider
 
 
-import com.sixt.coding.task.cars_list.CarFragment
-import com.sixt.coding.task.cars_map.MapFragment
+import com.sixt.coding.task.carslist.CarFragment
+import com.sixt.coding.task.carsmap.MapFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

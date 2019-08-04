@@ -1,9 +1,5 @@
 package com.sixt.coding.task.model
 
-
-
-
-
 data class Car(
     val carImageUrl: String,
     val color: String,

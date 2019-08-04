@@ -5,7 +5,6 @@ import com.sixt.coding.task.HomeActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
-
 @Module
 abstract class ActivityBuilderModule {
 

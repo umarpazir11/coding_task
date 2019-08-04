@@ -7,7 +7,7 @@
         <import type="android.view.View"/>
         <variable
                 name="viewModel"
-                type="com.sixt.coding.task.cars_list.CarsListViewModel"/>
+                type="com.sixt.coding.task.carslist.CarsListViewModel"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -31,7 +31,7 @@
                 android:background="@android:color/white"
                 app:layoutManager="LinearLayoutManager"
                 app:adapter="@{viewModel.getAdapter()}"
-                tools:context=".cars_list.CarFragment"
+                tools:context=".carslist.CarFragment"
                 tools:listitem="@layout/fragment_car"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

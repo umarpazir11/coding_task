@@ -6,5 +6,4 @@ class CarsRepository(private val sixtApiService: NetworkServices) {
 
     fun getCars() = this.sixtApiService.cars!!
 
-
 }

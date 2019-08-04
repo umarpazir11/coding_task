@@ -1,12 +1,11 @@
-package com.sixt.coding.task.cars_map
+package com.sixt.coding.task.carsmap
 
 import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
-import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.maps.model.LatLng
@@ -14,10 +13,9 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.sixt.coding.task.R
 import com.sixt.coding.task.api.repo.CarsRepository
 import com.sixt.coding.task.base.BaseViewModel
-import com.sixt.coding.task.cars_list.CarFragment
+import com.sixt.coding.task.carslist.CarFragment
 import com.sixt.coding.task.di.module.OBSERVER_ON
 import com.sixt.coding.task.di.module.SUBCRIBER_ON
-import com.sixt.coding.task.model.Car
 import io.reactivex.Scheduler
 import javax.inject.Inject
 import javax.inject.Named
@@ -31,37 +29,42 @@ class MapViewModel @Inject constructor(
     private val carRepository: CarsRepository,
     @param:Named(SUBCRIBER_ON) private val subscriberOn: Scheduler,
     @param:Named(OBSERVER_ON) private val observerOn: Scheduler) : BaseViewModel(), OnMapReadyCallback {
-    lateinit var mMap: GoogleMap
 
-    override fun onMapReady(p0: GoogleMap) {
-        this.mMap = p0
-        getCars()
+    companion object{
+        const val zoom: Float = 12.0f
     }
 
-    val cars: MutableLiveData<MutableList<Car>?> = MutableLiveData()
+    private lateinit var mMap: GoogleMap
     val isLoading: MutableLiveData<Boolean?> = MutableLiveData()
-    val errorMessage: MutableLiveData<String?> = MutableLiveData()
-
+    private val errorMessage: MutableLiveData<String?> = MutableLiveData()
 
     init {
         this.isLoading.value = true
     }
 
+    override fun onMapReady(googleMap: GoogleMap) {
+        this.mMap = googleMap
+        getCars()
+    }
+
+
     fun onFloatingActionButton(v: View) {
         val activity = unwrap(v.context)
         val carFragment = CarFragment()
-        val fragmentManager: FragmentManager = activity.supportFragmentManager
-        val transaction = fragmentManager.beginTransaction()
-        transaction.addToBackStack(null)
-        transaction.replace(R.id.container, carFragment)
-        transaction.commit()
+        val fragmentManager: FragmentManager? = activity?.supportFragmentManager
+        val transaction = fragmentManager?.beginTransaction()
+        transaction?.addToBackStack(null)
+        transaction?.replace(R.id.container, carFragment)
+        transaction?.commit()
     }
 
     fun callMap(activity: MapFragment) {
-        val mapFragment: SupportMapFragment = (activity.childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment)
-        mapFragment.getMapAsync(this)
+        val mapFragment: SupportMapFragment? =
+            (activity.childFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment)
+        mapFragment?.getMapAsync(this)
     }
-    fun getCars() {
+
+    private fun getCars() {
         this.disposable.addAll(this.carRepository.getCars()
             .subscribeOn(subscriberOn)
             .observeOn(observerOn)
@@ -75,27 +78,27 @@ class MapViewModel @Inject constructor(
                 this.isLoading.value = false
             }
             .subscribe(
-                {
-                    cars.value = it
+                { carList ->
                     this.isLoading.value = false
-                    for (car in it) {
+                    for (car in carList) {
                         val latLng = LatLng(car.latitude, car.longitude)
                         mMap.addMarker(MarkerOptions().position(latLng).title(car.name).snippet(car.make))
-                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12.0f))
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom))
                     }
                 },
                 {
+                    it.printStackTrace()
                     this.errorMessage.value = it.message
                     this.isLoading.value = false
                 }
             ))
     }
 
-    private fun unwrap(context: Context): AppCompatActivity {
+    private fun unwrap(context: Context): AppCompatActivity? {
         var context = context
         while (context !is Activity && context is ContextWrapper) {
             context = context.baseContext
         }
-        return context as AppCompatActivity
+        return context as? AppCompatActivity
     }
 }

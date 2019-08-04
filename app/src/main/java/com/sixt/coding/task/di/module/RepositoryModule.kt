@@ -14,6 +14,4 @@ class RepositoryModule {
     @Singleton
     fun provideUserRepository(sixtApiService: NetworkServices) = CarsRepository(sixtApiService)
 
-
-
 }

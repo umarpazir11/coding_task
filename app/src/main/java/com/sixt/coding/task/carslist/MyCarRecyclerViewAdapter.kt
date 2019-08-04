@@ -1,8 +1,6 @@
-package com.sixt.coding.task.cars_list
+package com.sixt.coding.task.carslist
 
 import android.content.Context
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -12,7 +10,6 @@ import com.sixt.coding.task.R
 import com.sixt.coding.task.databinding.FragmentCarBinding
 import com.sixt.coding.task.model.Car
 import com.bumptech.glide.request.RequestOptions
-
 
 /**
  * [RecyclerView.Adapter] that can display a [Car]
@@ -34,22 +31,22 @@ class MyCarRecyclerViewAdapter : RecyclerView.Adapter<MyCarRecyclerViewAdapter.V
         holder.binding.tvMake.text = item.make
         holder.binding.tvName.text = item.name
 
-        val sharedOptions = RequestOptions()
-            .placeholder(R.mipmap.ic_launcher)
+        val sharedOptions = RequestOptions().optionalFitCenter()
+            .placeholder(R.drawable.ic_car_placeholder)
+
         Glide.with(context)
             .load(item.carImageUrl)
             .apply(sharedOptions)
             .into(holder.binding.ivCar)
-
-
     }
+
     override fun getItemCount(): Int {
-        return if(::carList.isInitialized) carList.size else 0
+        return if (::carList.isInitialized) carList.size else 0
     }
 
     inner class ViewHolder(val binding: FragmentCarBinding) : RecyclerView.ViewHolder(binding.root)
 
-    fun updateCarList(carList: List<Car>){
+    fun updateCarList(carList: List<Car>) {
         this.carList = carList
         notifyDataSetChanged()
     }

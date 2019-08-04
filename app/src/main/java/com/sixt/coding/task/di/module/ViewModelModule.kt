@@ -2,8 +2,8 @@ package com.sixt.coding.task.di.module
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.sixt.coding.task.cars_list.CarsListViewModel
-import com.sixt.coding.task.cars_map.MapViewModel
+import com.sixt.coding.task.carslist.CarsListViewModel
+import com.sixt.coding.task.carsmap.MapViewModel
 import com.sixt.coding.task.di.ViewModelKey
 import com.sixt.coding.task.di.factory.ViewModelFactory
 import dagger.Binds

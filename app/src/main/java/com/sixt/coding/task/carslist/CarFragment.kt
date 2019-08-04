@@ -1,4 +1,4 @@
-package com.sixt.coding.task.cars_list
+package com.sixt.coding.task.carslist
 
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
