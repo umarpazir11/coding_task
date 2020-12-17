@@ -5,7 +5,7 @@ import androidx.fragment.app.FragmentManager
 import com.sixt.coding.task.base.BaseActivity
 import com.sixt.coding.task.carsmap.MapFragment
 import com.sixt.coding.task.databinding.ActivityMapsBinding
-
+//Home
 class HomeActivity : BaseActivity<ActivityMapsBinding>() {
 
     override val layoutRes: Int
